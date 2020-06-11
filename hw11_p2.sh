@@ -1,0 +1,1 @@
+python ./Src/WGAN_test.py $1 $2
