@@ -20,7 +20,7 @@ import os
 
 workspace_dir = '.'
 
-data_path = sys.argv[1]
+model_path = sys.argv[1]
 output_path = sys.argv[2]
 
 class FaceDataset(Dataset):
@@ -169,18 +169,13 @@ discriminator = Discriminator().cuda()
 optimizer_G = torch.optim.RMSprop(generator.parameters(), lr=lr)
 optimizer_D = torch.optim.RMSprop(discriminator.parameters(), lr=lr)
 
-same_seeds(0)
-# dataloader (You might need to edit the dataset path if you use extra dataset.)
-dataset = get_dataset(data_path)
-dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4)
-
 
 same_seeds(0)
 ### Load model
 import torch
 # load pretrained model
 G = Generator(z_dim)
-G.load_state_dict(torch.load(os.path.join('./checkpoints/p2_g.pth')))
+G.load_state_dict(torch.load(model_path))
 G.eval()
 G.cuda()
 

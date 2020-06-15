@@ -17,7 +17,7 @@ import os
 
 workspace_dir = '.'
 
-data_path = sys.argv[1]
+model_path = sys.argv[1]
 output_path = sys.argv[2]
 
 
@@ -156,18 +156,11 @@ opt_G = torch.optim.Adam(G.parameters(), lr=lr, betas=(0.5, 0.999))
 
 
 same_seeds(0)
-# dataloader (You might need to edit the dataset path if you use extra dataset.)
-dataset = get_dataset(data_path)
-dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True, num_workers=4)
-
-
-
-same_seeds(0)
 ### Load model
 import torch
 # load pretrained model
 G = Generator(z_dim)
-G.load_state_dict(torch.load(os.path.join('./checkpoints/p1_g.pth')))
+G.load_state_dict(torch.load(model_path))
 G.eval()
 G.cuda()
 
